@@ -1,1 +1,16 @@
-{}
+{
+  "920f2948-ac22-4b4e-a457-9c766f8f8287": {
+    "callsign": "TEST",
+    "city": "Test",
+    "country": "TEST",
+    "downlink": 146.52,
+    "lat": 36.264411646194006,
+    "lng": -65.67824080000139,
+    "notes": "This is just a test",
+    "offset": -0.52,
+    "owner_website": "",
+    "region": "Test",
+    "uplink_tone": 110.7,
+    "last_updated": 1792185174078
+  }
+}
