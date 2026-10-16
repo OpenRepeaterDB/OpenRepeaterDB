@@ -19,7 +19,8 @@ if (repeatersJson.ok) {
             `<p><b>Uplink</b>: ${repeater["downlink"] + repeater["offset"]} MHz` +
             `<p><b>Downlink</b>: ${repeater["downlink"]} MHz` +
             `<p><b>Tone</b>: ${repeater["uplink_tone"]} Hz` +
-            `<p><b>Location</b>: ${repeater["city"]}, ${repeater["region"]}, ${repeater["country"]}`
+            `<p><b>Location</b>: ${repeater["city"]}, ${repeater["region"]}, ${repeater["country"]}` +
+            `<p><a href="/repeater/${repeaterId}">More information</a></p>`
         );
         const marker = new maplibregl.Marker()
           .setLngLat([repeater["lng"], repeater["lat"]])
