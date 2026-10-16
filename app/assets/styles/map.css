@@ -6,3 +6,12 @@ main#mapPage {
     height: 60vh;
     border-radius: var(--unit-3);
 }
+
+.maplibregl-popup-content h3, .maplibregl-popup-content p {
+    margin: 0;
+    padding: 3px 0;
+}
+
+.maplibregl-popup-close-button {
+    width: fit-content;
+}
