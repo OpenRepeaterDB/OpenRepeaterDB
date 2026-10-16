@@ -12,5 +12,19 @@
     "region": "Test",
     "uplink_tone": 110.7,
     "last_updated": 1792185174078
+  },
+  "f9da0c2e-93e3-4665-a41a-da8b75edb1f4": {
+    "callsign": "TEST2",
+    "city": "Testville",
+    "country": "TEST",
+    "downlink": 146.33,
+    "lat": 15.053803393372888,
+    "lng": -71.47902205000115,
+    "notes": "",
+    "offset": -22.2,
+    "owner_website": "",
+    "region": "Test",
+    "uplink_tone": 232.1,
+    "last_updated": 1792191510498
   }
 }
