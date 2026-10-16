@@ -6,6 +6,6 @@ Repeater data should be easy to access, use, and improve. That's why OpenRepeate
 
 OpenRepeaterDB has no user accounts, making it really easy to contribute. Just submit an improvement and once it's reviewed and approved, it will be available on this website.
 
-Do you know of a local repeater that's missing? Add it and help make repeater data freely available - so you don't have to get permission from a company just to use the data.
+Do you know of a local repeater that's missing? Add it and help make repeater data freely available - so you don't have to rely on companies that don't use open licenses on their databases.
 
 [Go to the OpenRepeaterDB website](https://repeaters.web.app)
