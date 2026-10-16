@@ -11,8 +11,9 @@ const footer = await readFile("app/footer.html", {encoding: "utf-8"});
 // Copy assets
 await cp("app/assets", "build/assets", { recursive: true });
 
-// Copy 404, index
+// Copy 404, index, map
 await copyFile("app/index.html", "build/index.html");
+await copyFile("app/map.html", "build/map.html");
 await copyFile("app/404.html", "build/404.html");
 
 async function copyFile(src, dest, customReplace={}, overrideMetadata={}) {
