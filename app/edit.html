@@ -1,0 +1,82 @@
+<!--metadata:
+{
+    "title": "Add Repeater | OpenRepeaterDB",
+    "css": ["edit", "maplibre/style"]
+}
+:endmetadata-->
+{{header}}
+    <main>
+        <h1>{{title}}</h1>
+        <form id="repeaterForm">
+            <p>
+                <label>
+                    Call Sign: <input type="text" name="callsign" value="{{callsign}}" required>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Downlink frequency (in MHz): <input type="number" name="downlink" value="{{downlink}}" step="0.001" required>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Offset (in MHz): <input type="number" name="offset" value="{{offset}}" step="0.001" required>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Uplink Tone (in Hz): <input type="text" name="uplink_tone" value="{{tone}}" step="0.1" required>
+                </label>
+            </p>
+            <p>
+                <label>
+                    City: <input type="text" name="city" value="{{city}}" required>
+                </label>
+            </p>
+            <p>
+                <label>
+                    State/Region: <input type="text" name="region" value="{{region}}" required>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Country: <input type="text" name="country" value="{{country}}" required>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Website: <input type="text" name="owner_website" value="{{website}}">
+                </label>
+            </p>
+            <p>
+                <label>
+                    Notes: <input type="text" name="notes" value="{{notes}}">
+                </label>
+            </p>
+            <input type="hidden" name="lat" id="lat" value="{{lat}}">
+            <input type="hidden" name="lng" id="lng" value="{{lng}}">
+            <p>Click where the repeater is on the map:</p>
+            <div id="map"></div>
+            <p id="locationPlease">Please pick a location on the map.</p>
+            <button>Submit</button>
+        </form>
+        <dialog id="error" closedby="none">
+            <h2>Oops, something went wrong</h2>
+            <p id="rateLimited">You were rate limited. Try again in a few minutes.</p>
+            <p id="internalServerError">Something broke, consider making an issue <a href="">on our GitHub</a>.</p>
+            <button id="retry">Retry</button>
+        </dialog>
+        <dialog id="submittingChanges" closedby="none">
+            <h2>Your changes are being submitted</h2>
+            <p>Please wait a few moments, we are sending your changes off and we will review it soon!</p>
+        </dialog>
+        <dialog id="success" closedby="none">
+            <h2>Your changes will be reviewed soon</h2>
+            <p>Your changes have been sent to the queue and will be reviewed soon.</p>
+            <p>You can <a id="githubLink" target="_blank">track the progress here.</a></p>
+            <p>While your changes are pending, you will not see them on this website.</p>
+            <button id="closeSuccess">Close</button>
+        </dialog>
+    </main>
+    <script src="/assets/scripts/edit.js" type="module"></script>
+{{footer}}

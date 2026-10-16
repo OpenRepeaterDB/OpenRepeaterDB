@@ -5,6 +5,7 @@ import repeaters from "./repeaters.json" with { type: 'json' }
 await rm("build/", { recursive: true, force: true });
 await mkdir("build/");
 await mkdir("build/repeater/");
+await mkdir("build/edit/");
 
 // Read header, footer
 const header = await readFile("app/header.html", {encoding: "utf-8"});
@@ -18,6 +19,20 @@ await cp("app/assets", "build/assets", { recursive: true });
 await copyFile("app/index.html", "build/index.html");
 await copyFile("app/map.html", "build/map.html");
 await copyFile("app/404.html", "build/404.html");
+await copyFile("app/edit.html", "build/addrepeater.html", {
+    title: "Add Repeater",
+    callsign: "",
+    downlink: "",
+    offset: "",
+    tone: "",
+    city: "",
+    region: "",
+    country: "",
+    website: "",
+    notes: "",
+    lat: "",
+    lng: ""
+});
 
 Object.keys(repeaters).forEach(repeaterId => {
     const repeater = repeaters[repeaterId];
@@ -38,6 +53,25 @@ Object.keys(repeaters).forEach(repeaterId => {
     }, {
         title: `${repeater["callsign"]} | OpenRepeaterDB`
     })
+
+    copyFile("app/edit.html", `build/edit/${repeaterId}.html`, {
+        title: "Edit Repeater",
+        callsign: repeater["callsign"],
+        city: repeater["city"],
+        region: repeater["region"],
+        country: repeater["country"],
+        downlink: repeater["downlink"],
+        uplink: repeater["downlink"] + repeater["offset"],
+        offset: repeater["offset"],
+        tone: repeater["uplink_tone"],
+        notes: repeater["notes"],
+        website: repeater["owner_website"],
+        lat: repeater["lat"],
+        lng: repeater["lng"],
+        id: repeaterId,
+    }, {
+        title: `Edit ${repeater["callsign"]} | OpenRepeaterDB`
+    });
 })
 
 async function copyFile(src, dest, customReplace={}, overrideMetadata={}) {

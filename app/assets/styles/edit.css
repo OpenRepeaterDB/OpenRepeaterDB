@@ -1,0 +1,9 @@
+#map {
+    height: 60vh;
+    border-radius: var(--unit-3);
+    margin-bottom: var(--unit-3);
+}
+
+#locationPlease {
+    display: none;
+}
