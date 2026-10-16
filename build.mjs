@@ -9,6 +9,7 @@ const header = await readFile("app/header.html", {encoding: "utf-8"});
 const footer = await readFile("app/footer.html", {encoding: "utf-8"});
 
 // Copy assets
+await cp("repeaters.json", "build/repeaters.json");
 await cp("app/assets", "build/assets", { recursive: true });
 
 // Copy 404, index, map
