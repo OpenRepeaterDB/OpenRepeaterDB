@@ -1,8 +1,10 @@
 import { readFile, writeFile, rm, mkdir, cp } from "node:fs/promises";
+import repeaters from "./repeaters.json" with { type: 'json' }
 
 // Empty the build directory
 await rm("build/", { recursive: true, force: true });
 await mkdir("build/");
+await mkdir("build/repeater/");
 
 // Read header, footer
 const header = await readFile("app/header.html", {encoding: "utf-8"});
@@ -16,6 +18,27 @@ await cp("app/assets", "build/assets", { recursive: true });
 await copyFile("app/index.html", "build/index.html");
 await copyFile("app/map.html", "build/map.html");
 await copyFile("app/404.html", "build/404.html");
+
+Object.keys(repeaters).forEach(repeaterId => {
+    const repeater = repeaters[repeaterId];
+    copyFile("app/repeater.html", `build/repeater/${repeaterId}.html`, {
+        callsign: repeater["callsign"],
+        city: repeater["city"],
+        region: repeater["region"],
+        country: repeater["country"],
+        downlink: repeater["downlink"],
+        uplink: repeater["downlink"] + repeater["offset"],
+        offset: repeater["offset"],
+        tone: repeater["uplink_tone"],
+        notes: repeater["notes"],
+        website: repeater["owner_website"],
+        lat: repeater["lat"],
+        lng: repeater["lng"],
+        id: repeaterId,
+    }, {
+        title: `${repeater["callsign"]} | OpenRepeaterDB`
+    })
+})
 
 async function copyFile(src, dest, customReplace={}, overrideMetadata={}) {
     const template = await readFile(src, {encoding: "utf-8"});
