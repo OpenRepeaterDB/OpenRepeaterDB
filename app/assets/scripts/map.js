@@ -7,7 +7,7 @@ const map = new maplibregl.Map({
     zoom: 2, // starting zoom
 });
 
-const repeatersJson = await fetch("/repeaters.json");
+const repeatersJson = await fetch("/repeaters.json", { cache: "no-cache" });
 
 if (repeatersJson.ok) {
     const repeaters = await repeatersJson.json();
