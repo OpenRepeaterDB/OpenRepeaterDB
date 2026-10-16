@@ -7,6 +7,10 @@ main#mapPage {
     border-radius: var(--unit-3);
 }
 
+.maplibregl-popup-content * {
+    color: #212121;
+}
+
 .maplibregl-popup-content h3, .maplibregl-popup-content p {
     margin: 0;
     padding: 3px 0;
