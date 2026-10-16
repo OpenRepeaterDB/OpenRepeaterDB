@@ -31,7 +31,8 @@ await copyFile("app/edit.html", "build/addrepeater.html", {
     website: "",
     notes: "",
     lat: "",
-    lng: ""
+    lng: "",
+    id: ""
 });
 
 Object.keys(repeaters).forEach(repeaterId => {

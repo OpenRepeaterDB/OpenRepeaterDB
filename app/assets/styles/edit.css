@@ -7,3 +7,9 @@
 #locationPlease {
     display: none;
 }
+
+dialog {
+    border-radius: var(--unit-3);
+    border: 0;
+    outline: none;
+}

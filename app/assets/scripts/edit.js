@@ -18,23 +18,70 @@ map.on('click', (e) => {
         .addTo(map);
 });
 
-const lat = document.getElementById("lat").value;
-const lng = document.getElementById("lng").value;
+const lat = document.getElementById("lat");
+const lng = document.getElementById("lng");
 
-if (lat !== "" && lng !== "") {
+if (lat.value !== "" && lng.value !== "") {
     marker
-        .setLngLat([lng, lat])
+        .setLngLat([lng.value, lat.value])
         .addTo(map);
 }
 
 const form = document.getElementById("repeaterForm");
 form.addEventListener("submit", (ev) => {
     ev.preventDefault();
+    submitForm()
+})
+
+async function submitForm() {
     const lngLat = marker.getLngLat();
 
     if (lngLat === undefined) {
         document.getElementById("locationPlease").style.display = "block";
     } else {
         document.getElementById("locationPlease").style.display = "none";
+        lat.value = lngLat.lat;
+        lng.value = lngLat.lng;
+
+        const formData = new FormData(form);
+
+        document.getElementById("submittingChanges").showModal();
+        const repeater = Object.fromEntries(formData);
+        repeater["downlink"] = parseFloat(repeater["downlink"]);
+        repeater["lat"] = parseFloat(repeater["lat"]);
+        repeater["lng"] = parseFloat(repeater["lng"]);
+        repeater["offset"] = parseFloat(repeater["offset"]);
+        repeater["uplink_tone"] = parseFloat(repeater["uplink_tone"]);
+    
+        const result = await fetch("https://dubster.hazelhope.com/api/openrepeaterdb/suggest.py", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify(repeater),
+        });
+    
+        document.getElementById("submittingChanges").close();
+        if (result.status == 200) {
+            document.getElementById("error").close();
+            const ghLink = (await result.json()).url;
+            document.getElementById("githubLink").href = ghLink;
+            document.getElementById("success").showModal();
+        } else {
+            if (result.status == 429) {
+                document.getElementById("rateLimited").style.display = "block";
+                document.getElementById("internalServerError").style.display = "none";
+            } else {
+                document.getElementById("rateLimited").style.display = "none";
+                document.getElementById("internalServerError").style.display = "block";
+            }
+            document.getElementById("error").showModal();
+        }
     }
+}
+
+document.getElementById("retry").addEventListener("click", submitForm)
+
+document.getElementById("closeSuccess").addEventListener("click", () => {
+    location.href = "/";
 })

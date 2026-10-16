@@ -8,6 +8,7 @@
     <main>
         <h1>{{title}}</h1>
         <form id="repeaterForm">
+            <input type="hidden" name="repeater_id" value="{{id}}">
             <p>
                 <label>
                     Call Sign: <input type="text" name="callsign" value="{{callsign}}" required>
@@ -75,7 +76,7 @@
             <p>Your changes have been sent to the queue and will be reviewed soon.</p>
             <p>You can <a id="githubLink" target="_blank">track the progress here.</a></p>
             <p>While your changes are pending, you will not see them on this website.</p>
-            <button id="closeSuccess">Close</button>
+            <button id="closeSuccess">Go home</button>
         </dialog>
     </main>
     <script src="/assets/scripts/edit.js" type="module"></script>
