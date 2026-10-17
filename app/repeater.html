@@ -1,7 +1,7 @@
 <!--metadata:
 {
     "title": "View Repeater | OpenRepeaterDB",
-    "css": []
+    "css": ["repeater"]
 }
 :endmetadata-->
 {{header}}
@@ -14,7 +14,10 @@
         <p><b>Uplink Tone</b>: {{tone}} Hz</p>
         <p><b>Website</b>: <a href="{{website}}" target="_blank">{{website}}</a></p>
         <p><b>Location</b>: <a href="https://www.google.com/maps/search/?api=1&query={{lat}},{{lng}}" target="_blank">{{lat}}, {{lng}}</a></p>
-        <p><b>Notes</b>: {{notes}}</p>
+        <p><b>Notes</b>:</p>
+        <div class="notesContent">
+            {{notes}}
+        </div>
         <p><b>Last Updated</b>: {{last_updated}}</p>
         <p><a href="/edit/{{id}}">Edit this repeater</a></p>
     </main>

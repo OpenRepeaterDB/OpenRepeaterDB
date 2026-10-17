@@ -49,7 +49,12 @@ Object.keys(repeaters).forEach(repeaterId => {
         uplink: repeater["downlink"] + repeater["offset"],
         offset: repeater["offset"],
         tone: repeater["uplink_tone"],
-        notes: repeater["notes"],
+        notes: repeater["notes"]
+            .replaceAll("\r", "")
+            .replaceAll("\n\n", "\n")
+            .split("\n")
+            .map(line => `<p>${line}</p>`)
+            .join(""),
         website: repeater["owner_website"],
         last_updated: lastUpdated,
         lat: repeater["lat"],
