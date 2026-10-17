@@ -54,5 +54,19 @@
     "region": "Alaska",
     "uplink_tone": 141.3,
     "last_updated": 1792196914281
+  },
+  "c5a2f07e-cfae-4fe1-96b4-da2f629adab6": {
+    "callsign": "KL7AA",
+    "city": "Anchorage",
+    "country": "US",
+    "downlink": 444.2,
+    "lat": 61.0515139246088,
+    "lng": -149.77429371988885,
+    "notes": "DMR - Color Code: 1\nTS1 - Open for any BM dynamic talk group.\nTS2 - AK Statewide (3102) and Anchorage (311181) Full Time.\nPlease do not activate any other talk groups on time slot 2.\n\nDStar:\nRPT1: KL7AA B\nRPT 2: KL7AA G\nNot linked to any reflector by default. Access to all reflectors and XLX modules is permitted.",
+    "offset": 5,
+    "owner_website": "https://kl7aa.org/",
+    "region": "Alaska",
+    "uplink_tone": null,
+    "last_updated": 1792202444794
   }
 }
