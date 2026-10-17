@@ -18,7 +18,7 @@ if (repeatersJson.ok) {
             `<h3>${repeater["callsign"]}</h3>` +
             `<p><b>Downlink</b>: ${repeater["downlink"]} MHz` +
             `<p><b>Uplink</b>: ${repeater["downlink"] + repeater["offset"]} MHz` +
-            `<p><b>Tone</b>: ${repeater["uplink_tone"]} Hz` +
+            (repeater["uplink_tone"] !== null ? `<p><b>Tone</b>: ${repeater["uplink_tone"]} Hz` : "") +
             `<p><b>Location</b>: ${repeater["city"]}, ${repeater["region"]}, ${repeater["country"]}` +
             `<p><a href="/repeater/${repeaterId}">More information</a></p>`
         );
