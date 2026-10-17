@@ -1,1 +1,16 @@
-{}
+{
+  "61a5c328-5fa8-4318-ba6f-90634fc53182": {
+    "callsign": "KL7AA",
+    "city": "Anchorage",
+    "country": "US",
+    "downlink": 146.94,
+    "lat": 61.07786856475113,
+    "lng": -149.75749512322122,
+    "notes": "",
+    "offset": -0.6,
+    "owner_website": "https://kl7aa.org/",
+    "region": "Alaska",
+    "uplink_tone": 103.5,
+    "last_updated": 1792196175398
+  }
+}
