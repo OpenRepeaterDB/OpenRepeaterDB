@@ -35,8 +35,11 @@ await copyFile("app/edit.html", "build/addrepeater.html", {
     id: ""
 });
 
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 Object.keys(repeaters).forEach(repeaterId => {
     const repeater = repeaters[repeaterId];
+    const lastUpdatedDate = new Date(repeater["last_updated"]);
+    const lastUpdated = `${months[lastUpdatedDate.getUTCMonth()]} ${lastUpdatedDate.getUTCDate()}, ${lastUpdatedDate.getUTCFullYear()} at ${lastUpdatedDate.getUTCHours().toString().padStart(2, "0")}:${lastUpdatedDate.getUTCMinutes().toString().padStart(2, "0")} UTC`
     copyFile("app/repeater.html", `build/repeater/${repeaterId}.html`, {
         callsign: repeater["callsign"],
         city: repeater["city"],
@@ -48,6 +51,7 @@ Object.keys(repeaters).forEach(repeaterId => {
         tone: repeater["uplink_tone"],
         notes: repeater["notes"],
         website: repeater["owner_website"],
+        last_updated: lastUpdated,
         lat: repeater["lat"],
         lng: repeater["lng"],
         id: repeaterId,
