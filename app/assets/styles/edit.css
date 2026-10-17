@@ -13,3 +13,8 @@ dialog {
     border: 0;
     outline: none;
 }
+
+textarea {
+    width: 100%;
+    height: var(--unit-24);
+}

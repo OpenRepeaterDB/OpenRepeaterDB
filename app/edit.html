@@ -49,11 +49,8 @@
                     Website: <input type="text" name="owner_website" value="{{website}}">
                 </label>
             </p>
-            <p>
-                <label>
-                    Notes: <input type="text" name="notes" value="{{notes}}">
-                </label>
-            </p>
+            <p><label for="notes">Notes:</label></p>
+            <textarea name="notes">{{notes}}</textarea>
             <input type="hidden" name="lat" id="lat" value="{{lat}}">
             <input type="hidden" name="lng" id="lng" value="{{lng}}">
             <p>Click where the repeater is on the map:</p>
