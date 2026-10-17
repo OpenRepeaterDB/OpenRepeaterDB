@@ -12,5 +12,19 @@
     "region": "Alaska",
     "uplink_tone": 103.5,
     "last_updated": 1792196175398
+  },
+  "ce055b6b-c202-43df-85fa-d9300af76fa9": {
+    "callsign": "KL7AA",
+    "city": "Anchorage",
+    "country": "US",
+    "downlink": 147.3,
+    "lat": 61.262693068018336,
+    "lng": -149.5305511168112,
+    "notes": "",
+    "offset": 0.6,
+    "owner_website": "https://kl7aa.org",
+    "region": "Alaska",
+    "uplink_tone": 141.3,
+    "last_updated": 1792196914281
   }
 }
