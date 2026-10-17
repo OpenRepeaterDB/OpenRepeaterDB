@@ -1,32 +1,95 @@
 import * as maplibregl from 'https://unpkg.com/maplibre-gl@^6.14.0/dist/maplibre-gl.mjs';
 
 const map = new maplibregl.Map({
-    container: "map", // container id
-    style: "https://tiles.openfreemap.org/styles/liberty", // style URL
-    center: [-98.3735533, 38.0331492], // starting position [lng, lat]
-    zoom: 2, // starting zoom
+    container: "map",
+    style: "https://tiles.openfreemap.org/styles/liberty",
+    center: [-98.3735533, 38.0331492],
+    zoom: 2,
+    fadeDuration: 0
 });
 
-const repeatersJson = await fetch("/repeaters.json", { cache: "no-cache" });
+const repeatersJson = await fetch("/repeaters.geojson", { cache: "no-cache" });
 
 if (repeatersJson.ok) {
     const repeaters = await repeatersJson.json();
-    Object.keys(repeaters).forEach(repeaterId => {
-        const repeater = repeaters[repeaterId];
 
-        const popup = new maplibregl.Popup({offset: 25}).setHTML(
+    if (!map.isStyleLoaded()) {
+        await new Promise(resolve => {
+            map.once("load", resolve);
+        });
+    }
+
+    map.addSource("repeaters", {
+        type: "geojson",
+        data: repeaters,
+        cluster: true,
+        clusterRadius: 20,
+        clusterMaxZoom: 14
+    });
+
+    map.addLayer({
+        id: 'clusters',
+        type: 'circle',
+        source: 'repeaters',
+        filter: ['has', 'point_count'],
+        paint: {
+            'circle-color': '#2E7D32',
+            'circle-radius': 16,
+            'circle-stroke-width': 2,
+            'circle-stroke-color': '#ffffff'
+        }
+    });
+
+    map.addLayer({
+        id: 'cluster-count',
+        type: 'symbol',
+        source: 'repeaters',
+        filter: ['has', 'point_count'],
+        layout: {
+            'text-field': '{point_count_abbreviated}',
+            'text-font': ['Lato'],
+            'text-size': 12
+        },
+        paint: {
+            "text-color": "#fafafa"
+        }
+    });
+
+    map.addLayer({
+        id: "repeaters",
+        type: "circle",
+        source: "repeaters",
+        filter: ['!', ['has', 'point_count']],
+        paint: {
+            'circle-color': '#2E7D32',
+            'circle-radius': 8,
+            'circle-stroke-width': 2,
+            'circle-stroke-color': '#ffffff'
+        }
+    });
+
+    map.on('click', 'repeaters', (e) => {
+      const coordinates = e.features[0].geometry.coordinates.slice();
+    
+      // Handle wrap-around for zoomed-out maps
+      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      }
+
+      const repeater = e.features[0].properties;
+    
+      new maplibregl.Popup()
+        .setLngLat(coordinates)
+        .setHTML(
             `<h3>${repeater["callsign"]}</h3>` +
             `<p><b>Downlink</b>: ${repeater["downlink"]} MHz` +
             `<p><b>Uplink</b>: ${repeater["downlink"] + repeater["offset"]} MHz` +
-            (repeater["uplink_tone"] !== null ? `<p><b>Tone</b>: ${repeater["uplink_tone"]} Hz` : "") +
+            (repeater["uplink_tone"] !== null && repeater["uplink_tone"] !== undefined ? `<p><b>Tone</b>: ${repeater["uplink_tone"]} Hz` : "") +
             `<p><b>Location</b>: ${repeater["city"]}, ${repeater["region"]}, ${repeater["country"]}` +
-            `<p><a href="/repeater/${repeaterId}">More information</a></p>`
-        );
-        const marker = new maplibregl.Marker()
-          .setLngLat([repeater["lng"], repeater["lat"]])
-          .setPopup(popup)
-          .addTo(map);
-    })
+            `<p><a href="/repeater/${repeater["id"]}">More information</a></p>`
+        )
+        .addTo(map);
+    });
 } else {
     alert("Didn't load repeaters right, maybe try refreshing the page?")
 }

@@ -19,6 +19,29 @@ await cp("app/assets", "build/assets", { recursive: true });
 await copyFile("app/index.html", "build/index.html");
 await copyFile("app/map.html", "build/map.html");
 await copyFile("app/404.html", "build/404.html");
+
+// Convert repeaters.json to geojson
+const repeatersGeoJson = {
+    "type": "FeatureCollection",
+    "features": Object.keys(repeaters).map(repeaterId => {
+        const repeater = repeaters[repeaterId];
+        repeater["id"] = repeaterId;
+        return {
+            "type": "Feature",
+            "properties": repeater,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    repeater["lng"],
+                    repeater["lat"]
+                ]
+            }
+        };
+    })
+}
+
+writeFile("build/repeaters.geojson", JSON.stringify(repeatersGeoJson));
+
 await copyFile("app/edit.html", "build/addrepeater.html", {
     title: "Add Repeater",
     callsign: "",
