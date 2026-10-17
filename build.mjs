@@ -49,7 +49,7 @@ Object.keys(repeaters).forEach(repeaterId => {
         uplink: repeater["downlink"] + repeater["offset"],
         offset: repeater["offset"],
         tone: repeater["uplink_tone"],
-        uplink_tone_display: repeater["uplink_tone"] === null ? "none" : "block",
+        uplink_tone_display: repeater["uplink_tone"] == null ? "none" : "block",
         notes: repeater["notes"]
             .replaceAll("\r", "")
             .replaceAll("\n\n", "\n")
