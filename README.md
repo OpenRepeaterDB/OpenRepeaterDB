@@ -9,3 +9,7 @@ OpenRepeaterDB has no user accounts, making it really easy to contribute. Just s
 Do you know of a local repeater that's missing? Add it and help make repeater data freely available - so you don't have to rely on companies that don't use open licenses on their databases.
 
 [Go to the OpenRepeaterDB website](https://repeaters.web.app)
+
+## Repeater Database
+
+The repeater database is [also on GitHub](https://github.com/OpenRepeaterDB/Database) under the CC BY-SA 4.0 license, and you can also download [GeoJSON file](https://repeaters.web.app/repeaters.geojson) or a [normal JSON file](https://repeaters.web.app/repeaters.json)
