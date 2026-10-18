@@ -1,7 +1,8 @@
 name: Update Repeaters
 on:
   workflow_dispatch:
-
+permissions:
+  contents: write
 jobs:
   update:
     runs-on: ubuntu-latest
