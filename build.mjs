@@ -1,5 +1,4 @@
-import { readFile, writeFile, rm, mkdir, cp } from "node:fs/promises";
-import repeaters from "./repeaters.json" with { type: 'json' }
+import { readFile, writeFile, rm, mkdir, cp, readdir } from "node:fs/promises";
 
 // Empty the build directory
 await rm("build/", { recursive: true, force: true });
@@ -12,7 +11,6 @@ const header = await readFile("app/header.html", {encoding: "utf-8"});
 const footer = await readFile("app/footer.html", {encoding: "utf-8"});
 
 // Copy assets
-await cp("repeaters.json", "build/repeaters.json");
 await cp("app/assets", "build/assets", { recursive: true });
 
 // Copy 404, index, map
@@ -20,7 +18,16 @@ await copyFile("app/index.html", "build/index.html");
 await copyFile("app/map.html", "build/map.html");
 await copyFile("app/404.html", "build/404.html");
 
-// Convert repeaters.json to geojson
+const repeaterIds = (await readdir("repeaters/")).filter(str => str !== "README.md" && str !== "LICENSE" && !str.startsWith("."));
+const repeaters = {};
+
+for (const fileName of repeaterIds) {
+    const repeaterContents = await readFile(`repeaters/${fileName}`, { encoding: "utf-8" });
+    const repeaterId = fileName.replaceAll(".json", "");
+    repeaters[repeaterId] = JSON.parse(repeaterContents);
+}
+
+// Convert repeaters to geojson
 const repeatersGeoJson = {
     "type": "FeatureCollection",
     "features": Object.keys(repeaters).map(repeaterId => {
@@ -40,6 +47,7 @@ const repeatersGeoJson = {
     })
 }
 
+writeFile("build/repeaters.json", JSON.stringify(repeaters));
 writeFile("build/repeaters.geojson", JSON.stringify(repeatersGeoJson));
 
 await copyFile("app/edit.html", "build/addrepeater.html", {

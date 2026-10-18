@@ -1,0 +1,3 @@
+[submodule "repeaters"]
+	path = repeaters
+	url = https://github.com/OpenRepeaterDB/Database
