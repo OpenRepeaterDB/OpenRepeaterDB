@@ -1,0 +1,20 @@
+name: Update Repeaters
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - name: Update submodules
+        run: |
+          git submodule update --init --recursive
+          git submodule update --recursive --remote
+          git add .
+          git commit -m "Update submodules" || echo "No changes to commit"
+          git push
