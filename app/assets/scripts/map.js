@@ -77,13 +77,16 @@ if (repeatersJson.ok) {
       }
 
       const repeater = e.features[0].properties;
-    
+
+      const uplink = (repeater["downlink"] + repeater["offset"]).toFixed(4);
+      const normalizedUplink = uplink.endsWith("0") ? uplink.substring(0, 7) : uplink;
+      
       new maplibregl.Popup()
         .setLngLat(coordinates)
         .setHTML(
             `<h3>${repeater["callsign"]}</h3>` +
             `<p><b>Downlink</b>: ${repeater["downlink"]} MHz` +
-            `<p><b>Uplink</b>: ${repeater["downlink"] + repeater["offset"]} MHz` +
+            `<p><b>Uplink</b>: ${normalizedUplink} MHz` +
             (repeater["uplink_tone"] !== null && repeater["uplink_tone"] !== undefined ? `<p><b>Tone</b>: ${repeater["uplink_tone"]} Hz` : "") +
             `<p><b>Location</b>: ${repeater["city"]}, ${repeater["region"]}, ${repeater["country"]}` +
             `<p><a href="/repeater/${repeater["id"]}">More information</a></p>`

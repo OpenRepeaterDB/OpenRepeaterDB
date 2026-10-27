@@ -71,13 +71,16 @@ Object.keys(repeaters).forEach(repeaterId => {
     const repeater = repeaters[repeaterId];
     const lastUpdatedDate = new Date(repeater["last_updated"]);
     const lastUpdated = `${months[lastUpdatedDate.getUTCMonth()]} ${lastUpdatedDate.getUTCDate()}, ${lastUpdatedDate.getUTCFullYear()} at ${lastUpdatedDate.getUTCHours().toString().padStart(2, "0")}:${lastUpdatedDate.getUTCMinutes().toString().padStart(2, "0")} UTC`
+
+    const uplink = (repeater["downlink"] + repeater["offset"]).toFixed(4);
+    const normalizedUplink = uplink.endsWith("0") ? uplink.substring(0, 7) : uplink;
     copyFile("app/repeater.html", `build/repeater/${repeaterId}.html`, {
         callsign: repeater["callsign"],
         city: repeater["city"],
         region: repeater["region"],
         country: repeater["country"],
         downlink: repeater["downlink"],
-        uplink: repeater["downlink"] + repeater["offset"],
+        uplink: normalizedUplink,
         offset: repeater["offset"],
         tone: repeater["uplink_tone"],
         uplink_tone_display: repeater["uplink_tone"] == null ? "none" : "block",
@@ -103,7 +106,7 @@ Object.keys(repeaters).forEach(repeaterId => {
         region: repeater["region"],
         country: repeater["country"],
         downlink: repeater["downlink"],
-        uplink: repeater["downlink"] + repeater["offset"],
+        uplink: normalizedUplink,
         offset: repeater["offset"],
         tone: repeater["uplink_tone"],
         notes: repeater["notes"],
