@@ -86,7 +86,7 @@ if (repeatersJson.ok) {
       if (repeater["uplink_tone_type"] === "ctcss" && repeater["uplink_tone"] !== null && repeater["uplink_tone"] !== undefined) {
           uplinkToneStr = `<p><b>Tone</b>: ${repeater["uplink_tone"]} Hz`
       } else if (repeater["uplink_tone_type"] === "dcs" && repeater["uplink_code"] !== null && repeater["uplink_code"] !== undefined) {
-          uplinkToneStr = `<p><b>Tone</b>: D${Math.abs(repeater["uplink_code"])}${repeater["uplink_code"] < 0 ? "I" : "N"}`;          
+          uplinkToneStr = `<p><b>DCS Code</b>: D${Math.abs(repeater["uplink_code"])}${repeater["uplink_code"] < 0 ? "I" : "N"}`;          
       }
       
       new maplibregl.Popup()
