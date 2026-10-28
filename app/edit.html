@@ -26,9 +26,33 @@
             </p>
             <p>
                 <label>
-                    Uplink Tone (in Hz): <input type="text" name="uplink_tone" value="{{tone}}" step="0.1">
+                    Uplink Tone Type: <select name="uplink_tone_type" id="uplink_tone_type">
+                        <option value="none" {{none_selected}}>None</option>
+                        <option value="ctcss" {{ctcss_selected}}>CTCSS</option>
+                        <option value="dcs" {{dcs_selected}}>DCS</option>
+                    </select>
                 </label>
             </p>
+            <p id="ctcssOption" style="display: {{ctcss_display}};">
+                <label>
+                    Uplink Tone (in Hz): <input type="number" name="uplink_tone" value="{{tone}}" step="0.1">
+                </label>
+            </p>
+            <div id="dcsOption" style="display: {{dcs_display}};">
+                <p>
+                    <label>
+                        Uplink Code: <input type="number" name="uplink_code" value="{{code}}" step="1">
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        DCS Code Type: <select name="dcs_code_type">
+                            <option value="N" {{dcs_normal_selected}}>Normal</option>
+                            <option value="I" {{dcs_inverted_selected}}>Inverted</option>
+                        </select>
+                    </label>
+                </p>
+            </div>
             <p>
                 <label>
                     City: <input type="text" name="city" value="{{city}}" required>

@@ -74,6 +74,10 @@ Object.keys(repeaters).forEach(repeaterId => {
 
     const uplink = (repeater["downlink"] + repeater["offset"]).toFixed(4);
     const normalizedUplink = uplink.endsWith("0") ? uplink.substring(0, 7) : uplink;
+
+    const uplinkToneDCS = repeater["uplink_tone_type"] === "dcs" ?
+        `D${Math.abs(repeater["uplink_code"])}${repeater["uplink_code"] < 0 ? "I" : "N"}`
+        : "";
     copyFile("app/repeater.html", `build/repeater/${repeaterId}.html`, {
         callsign: repeater["callsign"],
         city: repeater["city"],
@@ -83,7 +87,9 @@ Object.keys(repeaters).forEach(repeaterId => {
         uplink: normalizedUplink,
         offset: repeater["offset"],
         tone: repeater["uplink_tone"],
+        code: uplinkToneDCS,
         uplink_tone_display: repeater["uplink_tone"] == null ? "none" : "block",
+        uplink_code_display: repeater["uplink_code"] == null ? "none" : "block",
         notes: repeater["notes"]
             .replaceAll("\r", "")
             .replaceAll("\n\n", "\n")
@@ -108,7 +114,15 @@ Object.keys(repeaters).forEach(repeaterId => {
         downlink: repeater["downlink"],
         uplink: normalizedUplink,
         offset: repeater["offset"],
-        tone: repeater["uplink_tone"],
+        tone: repeater["uplink_tone"] !== null && repeater["uplink_tone"] !== undefined ? repeater["uplink_tone"] : "",
+        code: repeater["uplink_code"] ? Math.abs(repeater["uplink_code"]) : "",
+        dcs_normal_selected: repeater["uplink_code"] >= 0 ? "selected" : "",
+        dcs_inverted_selected: repeater["uplink_code"] < 0 ? "selected" : "",
+        none_selected: repeater["uplink_tone_type"] === "none" ? "selected" : "",
+        ctcss_selected: repeater["uplink_tone_type"] === "ctcss" ? "selected" : "",
+        dcs_selected: repeater["uplink_tone_type"] === "dcs" ? "selected" : "",
+        ctcss_display: repeater["uplink_tone_type"] === "ctcss" ? "block" : "none",
+        dcs_display: repeater["uplink_tone_type"] === "dcs" ? "block" : "none",
         notes: repeater["notes"],
         website: repeater["owner_website"],
         lat: repeater["lat"],

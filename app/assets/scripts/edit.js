@@ -85,3 +85,22 @@ document.getElementById("retry").addEventListener("click", submitForm)
 document.getElementById("closeSuccess").addEventListener("click", () => {
     location.href = "/";
 })
+
+const ctcssSelector = document.getElementById("uplink_tone_type");
+const ctcssOption = document.getElementById("ctcssOption");
+const dcsOption = document.getElementById("dcsOption");
+
+function updateDcsCtcss() {
+    if (ctcssSelector.value === "dcs") {
+        dcsOption.style.display = "block";
+        ctcssOption.style.display = "none";
+    } else if (ctcssSelector.value === "ctcss") {
+        ctcssOption.style.display = "block";
+        dcsOption.style.display = "none";
+    } else {
+        ctcssOption.style.display = "none";
+        dcsOption.style.display = "none";
+    }
+}
+
+ctcssSelector.addEventListener("change", updateDcsCtcss)
