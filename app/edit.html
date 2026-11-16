@@ -78,6 +78,16 @@
             <input type="hidden" name="lat" id="lat" value="{{lat}}">
             <input type="hidden" name="lng" id="lng" value="{{lng}}">
             <p>Click where the repeater is on the map:</p>
+            <p>
+                <label>
+                    <input type="radio" name="approximate_location" value="exact" {{exact_location}}>
+                    Exact location
+                </label>
+                <label>
+                    <input type="radio" name="approximate_location" value="approximate" {{approximate_location}}>
+                    Approximate location
+                </label>
+            </p>
             <div id="map"></div>
             <p>
                 <label>

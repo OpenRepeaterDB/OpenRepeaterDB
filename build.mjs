@@ -71,6 +71,8 @@ await copyFile("app/edit.html", "build/addrepeater.html", {
     notes: "",
     lat: "",
     lng: "",
+    exact_location: "",
+    approximate_location: "checked",
     id: ""
 });
 
@@ -108,6 +110,7 @@ Object.keys(repeaters).forEach(repeaterId => {
         last_updated: lastUpdated,
         lat: repeater["lat"],
         lng: repeater["lng"],
+        location_accuracy: repeater["approximate_location"] ? "Approximate" : "Exact",
         id: repeaterId,
     }, {
         title: `${repeater["callsign"]} | OpenRepeaterDB`
@@ -135,6 +138,8 @@ Object.keys(repeaters).forEach(repeaterId => {
         website: repeater["owner_website"],
         lat: repeater["lat"],
         lng: repeater["lng"],
+        approximate_location: repeater["approximate_location"] ? "checked" : "",
+        exact_location: repeater["approximate_location"] ? "" : "checked",
         id: repeaterId,
     }, {
         title: `Edit ${repeater["callsign"]} | OpenRepeaterDB`

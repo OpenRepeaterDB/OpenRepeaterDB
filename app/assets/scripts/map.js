@@ -97,6 +97,7 @@ if (repeatersJson.ok) {
             `<p><b>Uplink</b>: ${normalizedUplink} MHz` +
             uplinkToneStr +
             `<p><b>Location</b>: ${repeater["city"]}, ${repeater["region"]}, ${repeater["country"]}` +
+            `<p><b>Location Accuracy</b>: ${repeater["approximate_location"] ? "Approximate" : "Exact"}` +
             `<p><a href="/repeater/${repeater["id"]}">More information</a></p>`
         )
         .addTo(map);
